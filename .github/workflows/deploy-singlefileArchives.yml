@@ -53,8 +53,9 @@ jobs:
         echo "<ul>" > singlefile-repo/file-list.html
         # 使用 `find` 和 `ls` 組合進行篩選和排序
         for file in $(find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr | cut -d' ' -f2-); do
-          if [[ $(basename ${file}) !="file-list.html" ]];
+          if [[ $(basename "${file}") != "file-list.html" ]]; then
             echo "<li><a href='${file}'>$(basename ${file})</a></li>" >> singlefile-repo/file-list.html
+          fi
         done
         echo "</ul>" >> singlefile-repo/file-list.html
         
