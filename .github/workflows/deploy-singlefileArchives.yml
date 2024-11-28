@@ -59,7 +59,7 @@ jobs:
         done
         echo "</ul>" >> singlefile-repo/file-list.html
 
-        echo "<html>手動生成</html>" > /singlefile-repo/index.html
+        echo "<html>手動生成</html>" > singlefile-repo/index.html
         
     # 6. 檢查生成的檔案
     #- name: Check Generate File
