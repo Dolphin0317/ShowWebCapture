@@ -64,13 +64,6 @@ jobs:
         echo "========================================================================"
         cat singlefile-repo/file-list.txt
         echo "========================================================================"
-
-    # 6. 清理檔案
-    - name: Clean File
-      run: |
-        ls -al
-        rm index_sample *.sh
-        ls -al
         
     # 6. 檢查生成的檔案
     #- name: Check Generate File
@@ -87,14 +80,14 @@ jobs:
         bundle exec jekyll build --source singlefile-repo --destination _site
         cd _site && sh ./replace-html.sh && cd ..    
         
-        echo " List _site  Folder"
-        ls -al _site/
+        #echo " List _site  Folder"
+        #ls -al _site/
         
-        echo " Show Index.html &&&  file-list.txt "
-        echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-        cat _site/index.html
-        cat _site/file-list.txt
-        echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+        #echo " Show Index.html &&&  file-list.txt "
+        #echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+        #cat _site/index.html
+        #cat _site/file-list.txt
+        #echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
     # 8. 檢查 _site 目錄結構
     - name: Check Private Repo _site Directory Structure
@@ -102,8 +95,15 @@ jobs:
         echo "Listing the Private Repo _site directory structure:"
         ls -la _site/ 
         git remote get-url origin
+    
+    # 9. 清理檔案
+    - name: Clean File
+      run: |
+        ls -al _site/
+        rm _site/index_sample _site/*.sh
+        ls -al _site/
 
-    # 8. 部署到 GitHub Pages
+    # 10. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
