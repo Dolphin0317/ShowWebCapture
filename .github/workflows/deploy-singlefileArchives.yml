@@ -33,6 +33,9 @@ jobs:
         # 複製 index.html, index.css 和 dynamicloud-filelist.js 到 _site 目錄
         cp index.html *.css *.js _site/
 
+        echo "Listing the Public Repo _site directory structure:"
+        ls -la _site/
+
     # 4. 設置 Ruby 環境 (Jekyll 需要)
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -71,8 +74,8 @@ jobs:
     # 8. 檢查 _site 目錄結構
     - name: Check _site Directory Structure
       run: |
-        echo "Listing the _site directory structure:"
-        ls -la _site/    
+        echo "Listing the Private Repo _site directory structure:"
+        ls -la _site/ 
 
     # 8. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
