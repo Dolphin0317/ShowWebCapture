@@ -78,7 +78,7 @@ jobs:
       run: |
         bundle install       
         bundle exec jekyll build --source singlefile-repo --destination _site
-        cd _site && sh ./replace.sh && cd ..    
+        cd _site && sh ./replace-html.sh && cd ..    
         
         echo " List _site  Folder"
         ls -al _site/
