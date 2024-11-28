@@ -68,7 +68,9 @@ jobs:
     # 6. 清理檔案
     - name: Clean File
       run: |
+        ls -al
         rm index_sample *.sh
+        ls -al
         
     # 6. 檢查生成的檔案
     #- name: Check Generate File
