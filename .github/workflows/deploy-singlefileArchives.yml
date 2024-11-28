@@ -50,25 +50,25 @@ jobs:
         export LANG=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
     
-        echo "<ul>" > singlefile-repo/file-list.html
+        echo "<ul>" > singlefile-repo/file-list.txt
         # 使用 `find` 和 `ls` 組合進行篩選和排序
         for file in $(find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr | cut -d' ' -f2-); do
           if [[ $(basename "${file}") != "file-list.html" ]]; then
-            echo "<li><a href='${file}'>$(basename ${file})</a></li>" >> singlefile-repo/file-list.html
+            echo "<li><a href='${file}'>$(basename ${file})</a></li>" >> singlefile-repo/file-list.txt
           fi
         done
-        echo "</ul>" >> singlefile-repo/file-list.html
+        echo "</ul>" >> singlefile-repo/file-list.txt
         
-        echo "Generate File List FOR singlefile-repo/file-list.html"
+        echo "Generate File List FOR singlefile-repo/file-list.txt"
         echo "========================================================================"
-        cat singlefile-repo/file-list.html
+        cat singlefile-repo/file-list.txt
         echo "========================================================================"
         
     # 6. 檢查生成的檔案
     #- name: Check Generate File
     #  run: |        
-    #    echo "Generated file-list.html content:"
-    #    cat singlefile-repo/file-list.html
+    #    echo "Generated file-list.txt content:"
+    #    cat singlefile-repo/file-list.txt
     #    echo "Files in singlefile-repo directory (sorted by creation date):"
     #    find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr
 
@@ -82,10 +82,10 @@ jobs:
         echo " List _site  Folder"
         ls -al _site/
         
-        echo " Show Index.html &&&  file-list.html "
+        echo " Show Index.html &&&  file-list.txt "
         echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
         cat _site/index.html
-        cat _site/file-list.html
+        cat _site/file-list.txt
         echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
     # 8. 檢查 _site 目錄結構
