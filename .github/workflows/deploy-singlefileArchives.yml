@@ -48,7 +48,7 @@ jobs:
         sh ./singlefile-repo/export-filename.sh 
         cd singlefile-repo
         sh ./replace-html.sh 
-        rm *.sh
+        rm *.sh && rm index_sample
         cd .. 
 
     # 6. 構建 Jekyll 靜態網站
