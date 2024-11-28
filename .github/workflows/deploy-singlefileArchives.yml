@@ -23,14 +23,20 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Private Token
         path: singlefile-repo # 提取到此資料夾
 
-    # 3. 設置 Ruby 環境 (Jekyll 需要)
+    # 3. 從 Public Repository 複製必要檔案到 _site
+    - name: Copy index.html, index.css, and dynamicloud-filelist.js to _site
+      run: |
+        # 複製 index.html, index.css 和 dynamicloud-filelist.js 到 _site 目錄
+        cp index.html *.css *.js _site/
+
+    # 4. 設置 Ruby 環境 (Jekyll 需要)
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.1
         bundler-cache: true
         
-    # 4. 自動生成檔案清單
+    # 5. 自動生成檔案清單
     - name: Generate File List
       run: |
         # 設定環境變數來確保使用 UTF-8 編碼
@@ -44,7 +50,7 @@ jobs:
         done
         echo "</ul>" >> singlefile-repo/file-list.html
         
-    # 5. 檢查生成的檔案
+    # 6. 檢查生成的檔案
     #- name: Check Generate File
     #  run: |        
     #    echo "Generated file-list.html content:"
@@ -52,13 +58,13 @@ jobs:
     #    echo "Files in singlefile-repo directory (sorted by creation date):"
     #    find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr
 
-    # 6. 構建 Jekyll 靜態網站
+    # 7. 構建 Jekyll 靜態網站
     - name: Build Jekyll Site
       run: |
         bundle install
         bundle exec jekyll build --source singlefile-repo --destination _site
 
-    # 7. 檢查 _site 目錄結構
+    # 8. 檢查 _site 目錄結構
     - name: Check _site Directory Structure
       run: |
         echo "Listing the _site directory structure:"
