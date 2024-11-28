@@ -1,0 +1,13 @@
+url: "https://dolphin0317.github.io"
+baseurl: "/ShowWebCapture" # 根據您部署的 Repository 名稱調整
+
+title: SingleFile Browser Extension
+description: An archive of SingleFile outputs
+theme: minima # 使用默認 Jekyll 主題
+
+lang: zh-TW
+timezone: Asia/Taipei
+
+# 指定目錄
+source: .
+destination: _site
