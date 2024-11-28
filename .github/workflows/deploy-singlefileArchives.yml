@@ -24,7 +24,7 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Private Token
         path: singlefile-repo # 提取到此資料夾
 
-    # 3. 3. 創建 _site 目錄（如果不存在），然後從 Public Repo 複製必要檔案
+    # 3. 創建 _site 目錄（如果不存在），然後從 Public Repo 複製必要檔案
     - name: Copy index.html, index.css, and dynamicloud-filelist.js to _site
       run: |
         # 確保 _site 目錄存在，並將檔案拷貝到 _site 目錄
@@ -32,7 +32,9 @@ jobs:
         
         # 複製 index.html, index.css 和 dynamicloud-filelist.js 到 _site 目錄
         cp index.html *.css *.js _site/
-
+    
+    - name: Check Private Repo _site Directory Structure
+      run: |
         echo "Listing the Public Repo _site directory structure:"
         ls -la _site/
 
@@ -56,6 +58,8 @@ jobs:
           echo "<li><a href='${file}'>$(basename ${file})</a></li>" >> singlefile-repo/file-list.html
         done
         echo "</ul>" >> singlefile-repo/file-list.html
+
+        echo "<html>手動生成</html>" > /singlefile-repo/index.html
         
     # 6. 檢查生成的檔案
     #- name: Check Generate File
@@ -72,7 +76,7 @@ jobs:
         bundle exec jekyll build --source singlefile-repo --destination _site
 
     # 8. 檢查 _site 目錄結構
-    - name: Check _site Directory Structure
+    - name: Check Private Repo _site Directory Structure
       run: |
         echo "Listing the Private Repo _site directory structure:"
         ls -la _site/ 
