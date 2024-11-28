@@ -24,21 +24,20 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Private Token
         path: singlefile-repo # 提取到此資料夾
 
-    # 3. 創建 _site 目錄（如果不存在），然後從 Public Repo 複製必要檔案
-    - name: Copy index.html, index.css, and dynamicloud-filelist.js to _site
+    # 3. 創建 singlefile-repo 目錄（如果不存在），然後從 Public Repo 複製必要檔案
+    - name: Copy index.html, index.css, and dynamicloud-filelist.js to singlefile-repo
       run: |
-        # 確保 _site 目錄存在，並將檔案拷貝到 _site 目錄
-        mkdir -p _site
+        # 確保 singlefile-repo 目錄存在，並將檔案拷貝到 singlefile-repo 目錄
         mkdir -p singlefile-repo
         
         # 複製 index.html, index.css 和 dynamicloud-filelist.js 到 _site 目錄
         cp index.html *.css *.js _site/
         cp index.html *.css *.js  singlefile-repo/
     
-    - name: Check Private Repo _site Directory Structure
+    - name: Check Private Repo singlefile-repo Directory Structure
       run: |
-        echo "Listing the Public Repo _site directory structure:"
-        ls -la _site/
+        echo "Listing the Public Repo singlefile-repo directory structure:"
+        ls -la singlefile-repo/
 
     # 4. 設置 Ruby 環境 (Jekyll 需要)
     - name: Set up Ruby
@@ -60,8 +59,6 @@ jobs:
           echo "<li><a href='${file}'>$(basename ${file})</a></li>" >> singlefile-repo/file-list.html
         done
         echo "</ul>" >> singlefile-repo/file-list.html
-
-        echo "<html>手動生成</html>" > singlefile-repo/index.html
         
     # 6. 檢查生成的檔案
     #- name: Check Generate File
@@ -74,15 +71,7 @@ jobs:
     # 7. 構建 Jekyll 靜態網站
     - name: Build Jekyll Site
       run: |
-        bundle install
-        echo " ## List singlefile-repo FS"
-        ls singlefile-repo
-        cat singlefile-repo/index.html
-        
-        echo " ## List _site FS"
-        ls _site
-        cat _site/index.html
-        
+        bundle install       
         bundle exec jekyll build --source singlefile-repo --destination _site
         echo " ### "
         cat _site/index.html
