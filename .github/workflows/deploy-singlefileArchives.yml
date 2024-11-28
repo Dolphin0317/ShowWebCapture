@@ -43,29 +43,30 @@ jobs:
           echo "<li><a href='${file}'>$(basename ${file})</a></li>" >> singlefile-repo/file-list.html
         done
         echo "</ul>" >> singlefile-repo/file-list.html
-
-        # 檢查生成的檔案
-        #echo "Generated file-list.html content:"
-        #cat singlefile-repo/file-list.html
-
-        #echo "Files in singlefile-repo directory (sorted by creation date):"
-        #find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr
-        echo "ls -la"
-        ls -la
-        echo "ls -la singlefile-repo"
-        ls -la singlefile-repo
-
-    # 5. 安裝 Jekyll 依賴
-    #- name: Install Dependencies
-    #  run: |
-    #    bundle install
+        
+    # 5. 檢查生成的檔案
+    #- name: Check Generate File
+    #  run: |        
+    #    echo "Generated file-list.html content:"
+    #    cat singlefile-repo/file-list.html
+    #    echo "Files in singlefile-repo directory (sorted by creation date):"
+    #    find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr
 
     # 6. 構建 Jekyll 靜態網站
     - name: Build Jekyll Site
       run: |
+        bundle install
         bundle exec jekyll build --source singlefile-repo --destination _site
 
-    # 6. 部署到 GitHub Pages
+    # 7. 檢查 _site 目錄結構
+    - name: Check _site Directory Structure
+      run: |
+        echo "Listing the _site directory structure:"
+        ls -la _site
+        cat _site/index.html
+    
+
+    # 8. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
