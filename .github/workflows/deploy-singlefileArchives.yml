@@ -29,7 +29,7 @@ jobs:
       run: |
         # 確保 singlefile-repo 目錄存在，並將檔案拷貝到 singlefile-repo 目錄
         mkdir -p singlefile-repo
-        cp index.html *.css *.js  singlefile-repo/
+        cp index.html *.css *.js *.sh singlefile-repo/
     
     - name: Check Private Repo singlefile-repo Directory Structure
       run: |
@@ -72,6 +72,7 @@ jobs:
       run: |
         bundle install       
         bundle exec jekyll build --source singlefile-repo --destination _site
+        cd _site && sh ./replace.sh && cd ..        
         echo " ## ##"
         ls -al _site/
         echo " ### "
