@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 定義檔案
-index_file="index_original.html"
+index_file="index_sample"
 file_list="file-list.txt"
 output_file="index.html"
 
