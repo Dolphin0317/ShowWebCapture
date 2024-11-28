@@ -29,13 +29,22 @@ jobs:
       with:
         ruby-version: 3.1
         bundler-cache: true
+        
+    # 4. 自動生成檔案清單
+    - name: Generate File List
+      run: |
+        echo "<ul>" > singlefile-repo/file-list.html
+        for file in $(ls singlefile-repo); do
+          echo "<li><a href='${file}'>${file}</a></li>" >> singlefile-repo/file-list.html
+        done
+        echo "</ul>" >> singlefile-repo/file-list.html
 
-    # 4. 安裝 Jekyll 依賴
+    # 5. 安裝 Jekyll 依賴
     - name: Install Dependencies
       run: |
         bundle install
 
-    # 5. 構建 Jekyll 靜態網站
+    # 6. 構建 Jekyll 靜態網站
     - name: Build Jekyll Site
       run: |
         bundle exec jekyll build --source singlefile-repo --destination _site
