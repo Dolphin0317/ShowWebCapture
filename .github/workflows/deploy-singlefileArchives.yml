@@ -3,8 +3,8 @@ name: Deploy Jekyll Site from Private Repo
 
 on:
   push:
-    branches:
-      - main # 監控 main 分支的變更
+    branches: ["main"] # 監控 main 分支的變更
+    
   workflow_dispatch: # 支援手動觸發
 
 jobs:
@@ -28,10 +28,12 @@ jobs:
     - name: Copy index.html, index.css, and dynamicloud-filelist.js to _site
       run: |
         # 確保 _site 目錄存在，並將檔案拷貝到 _site 目錄
-        mkdir -p _site  # 創建 _site 目錄（如果不存在）
+        mkdir -p _site
+        mkdir -p singlefile-repo
         
         # 複製 index.html, index.css 和 dynamicloud-filelist.js 到 _site 目錄
         cp index.html *.css *.js _site/
+        cp index.html *.css *.js  singlefile-repo/
     
     - name: Check Private Repo _site Directory Structure
       run: |
@@ -73,6 +75,14 @@ jobs:
     - name: Build Jekyll Site
       run: |
         bundle install
+        echo "singlefile-repo FS"
+        ls singlefile-repo
+        cat singlefile-repo/index.html
+        
+        echo "_site FS"
+        ls _site
+        cat _site/index.html
+        
         bundle exec jekyll build --source singlefile-repo --destination _site
 
     # 8. 檢查 _site 目錄結構
@@ -80,6 +90,7 @@ jobs:
       run: |
         echo "Listing the Private Repo _site directory structure:"
         ls -la _site/ 
+        git remote get-url origin
 
     # 8. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
