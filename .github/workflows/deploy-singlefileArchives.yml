@@ -45,9 +45,10 @@ jobs:
         export LANG=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
 
+        sh ./singlefile-repo/export-filename.sh 
         cd singlefile-repo
-        sh ./export-filename.sh && rm export-filename.sh
-        sh ./replace-html.sh && rm replace-html.sh
+        sh ./replace-html.sh 
+        rm *.sh
         cd .. 
 
     # 6. 構建 Jekyll 靜態網站
