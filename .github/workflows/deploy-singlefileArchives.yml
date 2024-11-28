@@ -45,11 +45,15 @@ jobs:
         echo "</ul>" >> singlefile-repo/file-list.html
 
         # 檢查生成的檔案
-        echo "Generated file-list.html content:"
-        cat singlefile-repo/file-list.html
+        #echo "Generated file-list.html content:"
+        #cat singlefile-repo/file-list.html
 
-        echo "Files in singlefile-repo directory (sorted by creation date):"
-        find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr
+        #echo "Files in singlefile-repo directory (sorted by creation date):"
+        #find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr
+        echo "ls -la"
+        ls -la
+        echo "ls -la singlefile-repo"
+        ls -la singlefile-repo
 
     # 5. 安裝 Jekyll 依賴
     #- name: Install Dependencies
