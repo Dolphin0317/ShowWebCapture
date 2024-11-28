@@ -51,15 +51,7 @@ jobs:
         export LC_ALL=en_US.UTF-8
 
         sh ./singlefile-repo/export-filename.sh
-        cd _singlefile-repo && sh ./replace-html.sh && cd .. 
-        
-    # 6. 檢查生成的檔案
-    #- name: Check Generate File
-    #  run: |        
-    #    echo "Generated file-list.txt content:"
-    #    cat singlefile-repo/file-list.txt
-    #    echo "Files in singlefile-repo directory (sorted by creation date):"
-    #    find singlefile-repo -type f -name "*.html" -printf "%T@ %p\n" | sort -k1,1nr
+        cd singlefile-repo && sh ./replace-html.sh && cd .. 
 
     # 7. 構建 Jekyll 靜態網站
     - name: Build Jekyll Site
@@ -85,11 +77,13 @@ jobs:
         ls -la _site/ 
         git remote get-url origin
     
-    # 9. 清理檔案
+    # 9. 檢查生成的檔案
     - name: Clean File
       run: |
+        echo "List Folder:  _site "
         ls -al _site
-        echo "====================="
+        echo "+++++++++++++++++++++++++++++++"
+        echo "List Folder:  singlefile-rep "
         ls -al singlefile-repo
 
     # 10. 部署到 GitHub Pages
