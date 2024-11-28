@@ -41,14 +41,10 @@ jobs:
     # 5. 自動生成檔案清單
     - name: Generate File List
       run: |
-        # 設定環境變數來確保使用 UTF-8 編碼
-        export LANG=en_US.UTF-8
-        export LC_ALL=en_US.UTF-8
-
         sh ./singlefile-repo/export-filename.sh 
         cd singlefile-repo
         sh ./replace-html.sh 
-        rm *.sh && rm index_sample
+        rm *.sh index_sample
         cd .. 
 
     # 6. 構建 Jekyll 靜態網站
@@ -58,17 +54,17 @@ jobs:
         bundle exec jekyll build --source singlefile-repo --destination _site 
       
     # 7. 檢查生成的檔案
-    - name: List Directory Structure
-      run: |
-        echo "Origin: "
-        git remote get-url origin
-        echo "+++++++++++++++++++++++++++++++"
-        echo "List Folder:  -- _site -- "
-        ls -al _site
-        #cat _site/index.html
-        echo "+++++++++++++++++++++++++++++++"
-        echo "List Folder:  -- singlefile-rep -- "
-        ls -al singlefile-repo
+    #- name: List Directory Structure
+    #  run: |
+    #    echo "Origin: "
+    #    git remote get-url origin
+    #    echo "+++++++++++++++++++++++++++++++"
+    #    echo "List Folder:  -- _site -- "
+    #    ls -al _site
+    #    #cat _site/index.html
+    #    echo "+++++++++++++++++++++++++++++++"
+    #    echo "List Folder:  -- singlefile-rep -- "
+    #    ls -al singlefile-repo
 
     # 8. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
