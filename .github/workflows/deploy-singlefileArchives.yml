@@ -75,15 +75,17 @@ jobs:
     - name: Build Jekyll Site
       run: |
         bundle install
-        echo "singlefile-repo FS"
+        echo " ## List singlefile-repo FS"
         ls singlefile-repo
         cat singlefile-repo/index.html
         
-        echo "_site FS"
+        echo " ## List _site FS"
         ls _site
         cat _site/index.html
         
         bundle exec jekyll build --source singlefile-repo --destination _site
+        echo " ### "
+        cat _site/index.html
 
     # 8. 檢查 _site 目錄結構
     - name: Check Private Repo _site Directory Structure
