@@ -31,10 +31,10 @@ jobs:
         mkdir -p singlefile-repo
         cp *.html *.css *.js *.sh singlefile-repo/
     
-    - name: Check Private Repo singlefile-repo Directory Structure
-      run: |
-        echo "Listing the Public Repo singlefile-repo directory structure:"
-        ls -la singlefile-repo/
+    #- name: Check Private Repo singlefile-repo Directory Structure
+    #  run: |
+    #    echo "Listing the Public Repo singlefile-repo directory structure:"
+    #    ls -la singlefile-repo/
 
     # 4. 設置 Ruby 環境 (Jekyll 需要)
     - name: Set up Ruby
@@ -59,6 +59,11 @@ jobs:
         done
         echo "</ul>" >> singlefile-repo/file-list.html
         
+        echo "Generate File List FOR singlefile-repo/file-list.html"
+        echo "========================================================================"
+        cat singlefile-repo/file-list.html
+        echo "========================================================================"
+        
     # 6. 檢查生成的檔案
     #- name: Check Generate File
     #  run: |        
@@ -72,12 +77,16 @@ jobs:
       run: |
         bundle install       
         bundle exec jekyll build --source singlefile-repo --destination _site
-        cd _site && sh ./replace.sh && cd ..        
-        echo " ## ##"
+        cd _site && sh ./replace.sh && cd ..    
+        
+        echo " List _site  Folder"
         ls -al _site/
-        echo " ### "
+        
+        echo " Show Index.html &&&  file-list.html "
+        echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
         cat _site/index.html
         cat _site/file-list.html
+        echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
     # 8. 檢查 _site 目錄結構
     - name: Check Private Repo _site Directory Structure
