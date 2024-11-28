@@ -1,3 +1,4 @@
+
 name: Deploy Jekyll Site from Private Repo
 
 on:
@@ -23,9 +24,12 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Private Token
         path: singlefile-repo # 提取到此資料夾
 
-    # 3. 從 Public Repository 複製必要檔案到 _site
+    # 3. 3. 創建 _site 目錄（如果不存在），然後從 Public Repo 複製必要檔案
     - name: Copy index.html, index.css, and dynamicloud-filelist.js to _site
       run: |
+        # 確保 _site 目錄存在，並將檔案拷貝到 _site 目錄
+        mkdir -p _site  # 創建 _site 目錄（如果不存在）
+        
         # 複製 index.html, index.css 和 dynamicloud-filelist.js 到 _site 目錄
         cp index.html *.css *.js _site/
 
