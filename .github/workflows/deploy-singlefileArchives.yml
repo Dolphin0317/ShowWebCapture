@@ -62,8 +62,10 @@ jobs:
     - name: Check _site Directory Structure
       run: |
         echo "Listing the _site directory structure:"
-        ls -la _site
-        cat _site/index.html
+        ls -la
+        echo "List _site"
+        ls -la _site/
+        #cat _site/index.html
     
 
     # 8. 部署到 GitHub Pages
