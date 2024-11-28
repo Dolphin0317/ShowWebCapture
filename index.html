@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Lin 的檔案列表</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="owner-name">Kevin Lin</div>
+        <div class="owner-info">以下是 Kevin Lin 的檔案列表：</div>
+        <div class="file-list-content">
+            <!-- 動態插入的檔案列表 -->
+            <ul id="file-list">
+                <!-- file-list.html 的內容將自動插入至此處 -->
+                <li>檔案列表正在載入中...</li>
+            </ul>
+        </div>
+        <div class="file-list-content">
+            <!-- 動態插入的檔案列表 -->
+            <ul id="file-list2">
+                <!-- file-list.html 的內容將自動插入至此處 -->
+                <li>檔案列表正在載入中2...</li>
+            </ul>
+        </div>
+        <footer>
+            &copy; 2024 Kevin Lin. 保留所有權利。
+        </footer>
+        <span id="err" style="color:red;"></span>
+    </div>
+    <script src="dynamicload-filelist.js"></script>
+</body>
+</html>
