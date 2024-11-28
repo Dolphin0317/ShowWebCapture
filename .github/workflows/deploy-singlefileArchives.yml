@@ -25,11 +25,11 @@ jobs:
         path: singlefile-repo # 提取到此資料夾
 
     # 3. 創建 singlefile-repo 目錄（如果不存在），然後從 Public Repo 複製必要檔案
-    - name: Copy index.html, index.css, and dynamicloud-filelist.js to singlefile-repo
+    - name: Copy index_sample, *.css, *.sh and *.js to singlefile-repo
       run: |
         # 確保 singlefile-repo 目錄存在，並將檔案拷貝到 singlefile-repo 目錄
         mkdir -p singlefile-repo
-        cp *.html *.css *.js *.sh singlefile-repo/
+        cp index_sample *.css *.js *.sh singlefile-repo/
     
     #- name: Check Private Repo singlefile-repo Directory Structure
     #  run: |
@@ -64,6 +64,11 @@ jobs:
         echo "========================================================================"
         cat singlefile-repo/file-list.txt
         echo "========================================================================"
+
+    # 6. 清理檔案
+    - name: Clean File
+      run: |
+        rm index_sample *.sh
         
     # 6. 檢查生成的檔案
     #- name: Check Generate File
