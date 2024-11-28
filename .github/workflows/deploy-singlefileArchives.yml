@@ -20,22 +20,17 @@ jobs:
     - name: Checkout Private Repository
       uses: actions/checkout@v3
       with:
-        repository: Dolphin0317/SingleFile-Archives
+        repository: ${{ secrets.MY_PRIVATE_REPOSITORY }}
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Private Token
         path: singlefile-repo # 提取到此資料夾
 
     # 3. 創建 singlefile-repo 目錄（如果不存在），然後從 Public Repo 複製必要檔案
-    - name: Copy index_sample, *.css, *.sh and *.js to singlefile-repo
+    - name: Copy index_sample, *.css, *.sh to singlefile-repo
       run: |
         # 確保 singlefile-repo 目錄存在，並將檔案拷貝到 singlefile-repo 目錄
         mkdir -p singlefile-repo
-        cp index_sample *.css *.js *.sh singlefile-repo/
+        cp index_sample *.css *.sh singlefile-repo/
     
-    #- name: Check Private Repo singlefile-repo Directory Structure
-    #  run: |
-    #    echo "Listing the Public Repo singlefile-repo directory structure:"
-    #    ls -la singlefile-repo/
-
     # 4. 設置 Ruby 環境 (Jekyll 需要)
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -50,43 +45,31 @@ jobs:
         export LANG=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
 
-        sh ./singlefile-repo/export-filename.sh
-        cd singlefile-repo && sh ./replace-html.sh && cd .. 
+        cd singlefile-repo
+        sh ./export-filename.sh && rm export-filename.sh
+        sh ./replace-html.sh && rm replace-html.sh
+        cd .. 
 
-    # 7. 構建 Jekyll 靜態網站
+    # 6. 構建 Jekyll 靜態網站
     - name: Build Jekyll Site
       run: |
         bundle install
         bundle exec jekyll build --source singlefile-repo --destination _site 
-        rm _site/index_sample _site/*.sh
-        rm singlefile-repo/index_sample singlefile-repo/*.sh
-        
-        #echo " List _site  Folder"
-        #ls -al _site/
-        
-        #echo " Show Index.html &&&  file-list.txt "
-        #echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-        #cat _site/index.html
-        #cat _site/file-list.txt
-        #echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-
-    # 8. 檢查 _site 目錄結構
-    - name: Check Private Repo _site Directory Structure
+      
+    # 7. 檢查生成的檔案
+    - name: List Directory Structure
       run: |
-        echo "Listing the Private Repo _site directory structure:"
-        ls -la _site/ 
+        echo "Origin: "
         git remote get-url origin
-    
-    # 9. 檢查生成的檔案
-    - name: Clean File
-      run: |
-        echo "List Folder:  _site "
-        ls -al _site
         echo "+++++++++++++++++++++++++++++++"
-        echo "List Folder:  singlefile-rep "
+        echo "List Folder:  -- _site -- "
+        ls -al _site
+        #cat _site/index.html
+        echo "+++++++++++++++++++++++++++++++"
+        echo "List Folder:  -- singlefile-rep -- "
         ls -al singlefile-repo
 
-    # 10. 部署到 GitHub Pages
+    # 8. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
