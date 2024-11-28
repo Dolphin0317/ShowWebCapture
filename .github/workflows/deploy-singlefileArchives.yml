@@ -99,9 +99,11 @@ jobs:
     # 9. 清理檔案
     - name: Clean File
       run: |
-        ls -al _site/
         rm _site/index_sample _site/*.sh
-        ls -al _site/
+        #ls -al _site/
+
+        rm singlefile-repo/index_sample singlefile-repo/*.sh
+        ls -al singlefile-repo/
 
     # 10. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
