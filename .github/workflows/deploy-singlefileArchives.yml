@@ -53,10 +53,6 @@ jobs:
         bundle install
         bundle exec jekyll build --source singlefile-repo --destination _site 
 
-    # 檢查 .gitignore
-    - name: Debug .gitignore
-      run: cat .gitignore || echo "No .gitignore found"
-
     - name: Prepare _site for Deployment
       run: |
         mkdir -p deploy
@@ -80,6 +76,11 @@ jobs:
     #    echo "List Folder:  -- singlefile-rep -- "
     #    ls -al singlefile-repo
 
+    - name: Set Git User
+      run: |
+        git config user.name "KevinLin"
+        git config user.email "dolphin0317@gmail.com"
+    
     # 檢查 Git 狀態
     - name: Debug Git Status
       run: git status
