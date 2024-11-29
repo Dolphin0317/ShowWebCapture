@@ -57,11 +57,7 @@ jobs:
       run: |
         mkdir -p deploy
         cp -r _site/* deploy/
-        echo " _site "
-        ls -al _site/
-        echo " deploy "
-        ls -al deploy/
-
+        touch deploy/.env1
       
     # 7. 檢查生成的檔案
     #- name: List Directory Structure
@@ -76,11 +72,12 @@ jobs:
     #    echo "List Folder:  -- singlefile-rep -- "
     #    ls -al singlefile-repo
 
+    # 設定 Git 使用者資訊
     - name: Set Git User
       run: |
         git config user.name "KevinLin"
         git config user.email "dolphin0317@gmail.com"
-        touch /home/runner/work/ShowWebCapture/ShowWebCapture/deploy/.env
+        #touch /home/runner/work/ShowWebCapture/ShowWebCapture/deploy/.env
         ls -al /home/runner/work/ShowWebCapture/ShowWebCapture/deploy/*
 
     # 手動將 deploy 檔案加入 Git
@@ -88,12 +85,11 @@ jobs:
       run: |
         git add deploy/*
         git status
-  
-    - name: Commit deploy files
-      run: |
-        git commit -m "Deploy static files"
-    
 
+    # 確保提交變更
+    - name: Commit deploy files
+      run: git commit -m "Deploy static files" || echo "No changes to commit"
+    
     # 8. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
