@@ -86,7 +86,14 @@ jobs:
 
     # 手動將 deploy 檔案加入 Git
     - name: Stage deploy files
-      run: git add deploy/*
+      run: |
+        git add deploy/*
+        git status
+  
+    - name: Commit deploy files
+      run: |
+        git commit -m "Deploy static files"
+    
 
     # 8. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
