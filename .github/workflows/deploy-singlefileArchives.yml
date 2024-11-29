@@ -45,7 +45,6 @@ jobs:
         cd singlefile-repo
         sh ./replace-html.sh 
         rm *.sh index_sample README.md
-        touch /home/runner/work/ShowWebCapture/ShowWebCapture/deploy/*.env
         cd .. 
 
     # 6. 構建 Jekyll 靜態網站
@@ -81,6 +80,7 @@ jobs:
       run: |
         git config user.name "KevinLin"
         git config user.email "dolphin0317@gmail.com"
+        touch /home/runner/work/ShowWebCapture/ShowWebCapture/deploy/*.env
         ls -al /home/runner/work/ShowWebCapture/ShowWebCapture/deploy/*
 
     # 手動將 deploy 檔案加入 Git
