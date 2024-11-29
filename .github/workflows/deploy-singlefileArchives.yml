@@ -53,13 +53,14 @@ jobs:
         bundle install
         bundle exec jekyll build --source singlefile-repo --destination _site 
 
-    - name: Debug _site Directory
-      run: ls -la _site
-
     - name: Prepare _site for Deployment
       run: |
         mkdir -p deploy
         cp -r _site/* deploy/
+        echo " _site "
+        ls -al _site/
+        echo " deploy "
+        ls -al deploy/
 
       
     # 7. 檢查生成的檔案
