@@ -29,6 +29,7 @@ jobs:
       run: |
         # 確保 singlefile-repo 目錄存在，並將檔案拷貝到 singlefile-repo 目錄
         mkdir -p singlefile-repo
+        mkdir -p _site
         cp index_sample *.css *.sh singlefile-repo/
     
     # 4. 設置 Ruby 環境 (Jekyll 需要)
