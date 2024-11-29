@@ -29,7 +29,6 @@ jobs:
       run: |
         # 確保 singlefile-repo 目錄存在，並將檔案拷貝到 singlefile-repo 目錄
         mkdir -p singlefile-repo
-        mkdir -p _site
         cp index_sample *.css *.sh singlefile-repo/
     
     # 4. 設置 Ruby 環境 (Jekyll 需要)
@@ -53,6 +52,15 @@ jobs:
       run: |
         bundle install
         bundle exec jekyll build --source singlefile-repo --destination _site 
+
+    - name: Debug _site Directory
+      run: ls -la _site
+
+    - name: Prepare _site for Deployment
+      run: |
+        mkdir -p deploy
+        cp -r _site/* deploy/
+
       
     # 7. 檢查生成的檔案
     #- name: List Directory Structure
